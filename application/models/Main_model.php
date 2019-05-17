@@ -2,7 +2,6 @@
 
 class Main_model extends CI_Model {	
 
-
 	public function __construct() {
 		parent::__construct();
 
@@ -13,7 +12,7 @@ class Main_model extends CI_Model {
 
 		$data = array(
 			'username' => $username ,
-			'password' => $password
+			'password' => md5($password)
 			);
 		
 		$this->db->where($data);
@@ -29,7 +28,7 @@ class Main_model extends CI_Model {
 	public function create_user_account($username, $password, $rc) {
 		$data = array(
 			'username' => $username,
-			'password' => $password,
+			'password' => md5($password),
 			'research_center' => $rc
 			);
 		$this->db->insert('users', $data);
@@ -51,7 +50,7 @@ class Main_model extends CI_Model {
 	public function edit_account($uid, $un, $pw) {
 		$data = array(
 			'username' => $un,
-			'password' => $pw 
+			'password' => md5($pw) 
 			);
 
 		$this->db->where('user_id', $uid);
@@ -165,7 +164,7 @@ class Main_model extends CI_Model {
 
 	public function editAdminAccount($passwd) {
 		$data = array(
-			'password' => $passwd
+			'password' => md5($passwd)
 			);
 		$this->db->where('username', 'admin');
 		$this->db->update('users', $data);
@@ -173,7 +172,7 @@ class Main_model extends CI_Model {
 
 	public function editUserAccount($username, $password) {
 		$data = array(
-			'password' => $password
+			'password' => md5($password)
 			);
 		$this->db->where('username', $username);
 		$this->db->update('users', $data);
